@@ -1,2 +1,2 @@
 # ant-npc
-Reproduction of ant behavior with some features. Developed using react-konva.
+Reproduction of simple ant behavior. Developed using react-konva.
