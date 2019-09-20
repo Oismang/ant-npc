@@ -19,6 +19,7 @@ export class StackFSM {
   pushState(state) {
     if (this.getCurrentState() !== state) {
       this.stack.push(state);
+      state();
     }
   }
 

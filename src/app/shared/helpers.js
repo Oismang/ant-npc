@@ -1,4 +1,4 @@
-import { VIEW_WIDTH, VIEW_HEIGHT, ANT_SPEED, CLOSEST_DISTANCE } from "./constants";
+import { VIEW_WIDTH, VIEW_HEIGHT, CLOSEST_DISTANCE, ANT_SPEED } from "../constants/config";
 
 export const delaySeconds = (seconds) => {
 	return new Promise((resolve) => setTimeout(() => resolve(), seconds));

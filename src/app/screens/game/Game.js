@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Layer, Stage } from 'react-konva';
-import { CLOSEST_DISTANCE, LEAFS_COUNT, TIMEOT_MILIS, VIEW_HEIGHT, VIEW_WIDTH, GO_HOME, FIND_LEAF } from '../../constants';
-import { calculateAwayCoords, calculateNewCoords, delaySeconds, getClosestLeaf, getDistance, getRandomPoint } from '../../helpers';
-import { StackFSM } from '../../stackFSM';
-import Ant from '../ant/Ant';
-import House from '../house/House';
-import Leaf from '../leaf/Leaf';
+import Ant from '../../components/ant/Ant';
+import House from '../../components/house/House';
+import Leaf from '../../components/leaf/Leaf';
+import { CLOSEST_DISTANCE, LEAFS_COUNT, TIMEOT_MILIS, VIEW_HEIGHT, VIEW_WIDTH } from '../../constants/config';
+import { calculateAwayCoords, calculateNewCoords, delaySeconds, getClosestLeaf, getDistance, getRandomPoint } from '../../shared/helpers';
+import { StackFSM } from '../../shared/stackFSM';
+import './Game.css';
 
 class Game extends Component {
 
@@ -35,19 +36,23 @@ class Game extends Component {
   }
 
   componentDidMount = () => {
-    this.props.onRef(this)
     this.setRandomPoints();
   }
 
   startGame = () => {
-    this.brain.pushState(this.findLeaf());
+    this.brain.pushState(this.findLeaf);
   }
 
   render = () => {
     return (
-      <Stage width={VIEW_WIDTH} height={VIEW_HEIGHT} onMouseMove={this.onMouseMove}>
-        {this.renderImages()}
-      </Stage>
+      <>
+        <input type="button" value="Start" onClick={this.startGame} />
+        <div className="game-root">
+          <Stage width={VIEW_WIDTH} height={VIEW_HEIGHT} onMouseMove={this.onMouseMove}>
+            {this.renderImages()}
+          </Stage>
+        </div>
+      </>
     );
   }
 
@@ -94,16 +99,15 @@ class Game extends Component {
             leafs: [...this.state.leafs.slice(0, closestLeaf.indx), ...this.state.leafs.slice(closestLeaf.indx + 1)]
           }
         })
-  
+
         this.brain.popState();
-        this.brain.pushState(this.goHome());
+        this.brain.pushState(this.goHome);
         break;
       }
 
       // IF RUN AWAY
       if (this.state.runAway.warning) {
-        this.brain.popState();
-        this.brain.pushState(this.runAway(FIND_LEAF));
+        this.brain.pushState(this.runAway);
         break;
       }
 
@@ -129,20 +133,18 @@ class Game extends Component {
           }
         });
         this.brain.popState();
-        this.brain.pushState(this.findLeaf());
+        this.brain.pushState(this.findLeaf);
         break;
       }
 
-      // IF RUN AWAY
       if (this.state.runAway.warning) {
-        this.brain.popState();
-        this.brain.pushState(this.runAway(GO_HOME));
+        this.brain.pushState(this.runAway);
         break;
       }
     }
   }
 
-  runAway = async (from) => {
+  runAway = async () => {
     while (true) {
 
       // MOVE
@@ -158,11 +160,7 @@ class Game extends Component {
         });
 
         this.brain.popState();
-        if (from === GO_HOME) {
-          this.brain.pushState(this.goHome())
-        } else {
-          this.brain.pushState(this.findLeaf());
-        }
+        this.brain.update();
         break;
       }
     }

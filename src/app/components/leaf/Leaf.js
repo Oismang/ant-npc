@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-konva';
 import useImage from 'use-image';
-import { LEAF_HEIGTH, LEAF_WIDTH } from '../../constants';
+import { LEAF_HEIGTH, LEAF_WIDTH } from '../../constants/config';
 
 const Leaf = (props) => {
     const [image] = useImage(require("../../../assets/leaf.png"));

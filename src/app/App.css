@@ -1,5 +1,12 @@
-.game {
-  height: 700px;
-  width: 800px;
-  border: 1px solid black;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Fira Sans';
+  line-height: 1;
+
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: center;
+  align-content: center;
 }

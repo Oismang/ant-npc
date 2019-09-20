@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-konva';
 import useImage from 'use-image';
-import { ANT_HEIGHT, ANT_WIDTH } from '../../constants';
+import { ANT_HEIGHT, ANT_WIDTH } from '../../constants/config';
 
 const Ant = (props) => {
     const [image] = useImage(require("../../../assets/ant.png"));

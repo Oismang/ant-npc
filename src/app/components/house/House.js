@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Text } from 'react-konva';
 import useImage from 'use-image';
-import { HOUSE_HEIGTH, HOUSE_WIDTH } from '../../constants';
+import { HOUSE_HEIGTH, HOUSE_WIDTH } from '../../constants/config';
 
 const House = (props) => {
   const [image] = useImage(require("../../../assets/house.png"));
